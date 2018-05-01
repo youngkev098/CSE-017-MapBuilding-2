@@ -1,0 +1,127 @@
+import java.util.*;
+
+/**
+ * Generic Node class that contains the Point and a list of places at that
+ * location.
+ * 
+ * @param <T> Point
+ */
+public class Node<T> implements Comparable <Node<T>>
+{
+    private T data;
+    private ArrayList<String> places;
+    private ArrayList<String> streets;
+
+    /**
+     * Create a node.
+     * 
+     * @param data
+     *            Point
+     * @param places
+     *            array list of places
+     */
+    public Node(T data, ArrayList<String> places)
+    {
+        this.data = data;
+        this.places = places;
+        this.setStreets(null);
+    }
+
+    /**
+     * Gets the Point data.
+     * Big-O: O(1)
+     * 
+     * @return the string representation of the point
+     */
+    public T getData() 
+    {
+        return data;
+    }
+
+    /**
+     * Sets the Point data to the specified point.
+     * Big-O: O(1)
+     * 
+     * @param data
+     *            the specified point
+     */
+    public void setData(T data)
+    {
+        this.data = data;
+    }
+
+    /**
+     * Gets the Array list of places.
+     * Big-O: O(n)
+     * 
+     * @return the string representation of the list of places
+     */
+    public ArrayList<String> getPlaces()
+    {
+        return places;
+    }
+
+    /**
+     * Sets the array list of places to the specified linked list.
+     * Big-O: O(n)
+     * 
+     * @param places
+     *            the specified linked list of places
+     */
+    public void setPlaces(ArrayList<String> places)
+    {
+        this.places = places;
+    }
+    
+
+    /**
+     * @return the streets
+     */
+    public ArrayList<String> getStreets() {
+        return streets;
+    }
+
+    /**
+     * @param streets the streets to set
+     */
+    public void setStreets(ArrayList<String> streets) {
+        this.streets = streets;
+    }
+
+    /**
+     * Adds place to end of the array list of places.
+     * Big-O: O(1)
+     * 
+     * @param place
+     *            the specified place
+     */
+    public void addPlace(String place)
+    {
+        places.add(place);
+    }
+    
+    /**
+     * Strings the point and list of places together.
+     * Big-O: O(n)
+     * 
+     * @return string representation of the node as (x,y): [list of places]
+     */
+    public String toString()
+    {
+        return data.toString() + ": "
+                + Arrays.toString(places.toArray());
+    }
+
+    /**
+     * This method should compare the distances of Node objects
+     * @param o
+     * @return
+     */
+    public int compareTo(Node<T> o) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    
+    
+}
