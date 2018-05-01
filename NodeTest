@@ -1,0 +1,81 @@
+import java.util.*;
+import student.TestCase;
+
+/**
+ * Tests for the {@link Node} class.
+ */
+public class NodeTest extends TestCase
+{
+    private Node<Point> n1;
+    private ArrayList<String> places1;
+    private Point p1;
+
+    /**
+     * Create some new nodes for each test method.
+     */
+    public void setUp()
+    {
+        p1 = new Point(1, 1);
+        places1 = new ArrayList<String>();
+        n1 = new Node<Point>(p1, places1);
+    }
+
+    /**
+     * Test method for {@link Node#getData()}.
+     */
+    public void testGetData()
+    {
+        assertEquals("(1,1)", n1.getData().toString());
+    }
+
+    /**
+     * Test method for {@link Node#setData(Object)}.
+     */
+    public void testSetData()
+    {
+        assertEquals("(1,1)", n1.getData().toString());
+
+        Point p2 = new Point(2, 2);
+        n1.setData(p2);
+        assertEquals("(2,2)", n1.getData().toString());
+    }
+
+    /**
+     * Test method for {@link Node#getPlaces()}.
+     */
+    public void testGetPlaces()
+    {
+        assertEquals("[]", n1.getPlaces().toString());
+        n1.addPlace("restaurant");
+        assertEquals("[restaurant]", n1.getPlaces().toString());
+        n1.addPlace("restaurant");
+        n1.addPlace("academic building");
+        assertEquals("[restaurant, restaurant, academic building]", n1.getPlaces().toString());
+    }
+
+    /**
+     * Test method for {@link Node#addPlace(String) Node#setPlaces(ArrayList)}.
+     */
+    public void testSetPlaces()
+    {
+        ArrayList<String> places2 = new ArrayList<String>();
+        Node<Point> n2 = new Node<Point>(p1, places2);
+        n2.addPlace("academic building");
+        n2.addPlace("restaurant");
+        n1.setPlaces(places2);
+        assertEquals("[academic building, restaurant]", n1.getPlaces().toString());
+    }
+
+    /**
+     * Test method for {@link Node#toString()}.
+     */
+    public void testToString()
+    {
+        n1.addPlace("bank");
+        n1.addPlace("academic building");
+        n1.addPlace("restaurant");
+        n1.setPlaces(places1);
+        assertEquals("(1,1): [bank, academic building, restaurant]",
+                n1.toString());
+    }
+}
