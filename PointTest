@@ -1,0 +1,80 @@
+import student.TestCase;
+
+/**
+ * Tests for the {@link Point} class.
+ * 
+ */
+public class PointTest extends TestCase
+{
+    private Point p1;
+    private Point p2;
+    private Point p3;
+
+    /**
+     * Create some new points for each test method.
+     */
+    public void setUp()
+    {
+        p1 = new Point(5, 5);
+        p2 = new Point(5, 5);
+        p3 = new Point(1, 1);
+    }
+
+    /**
+     * Test method for {@link Point#getX()}.
+     */
+    public void testGetX()
+    {
+        assertEquals(5, p1.getX());
+    }
+
+    /**
+     * Test method for {@link Point#setX(int)}.
+     */
+    public void testSetX()
+    {
+        p1.setX(3);
+        assertEquals(3, p1.getX());
+    }
+
+    /**
+     * Test method for {@link Point#getY()}.
+     */
+    public void testGetY()
+    {
+        assertEquals(5, p1.getY());
+    }
+
+    /**
+     * Test method for {@link Point#setY(int)}.
+     */
+    public void testSetY()
+    {
+        p1.setY(3);
+        assertEquals(3, p1.getY());
+    }
+
+    /**
+     * Test method for {@link Point#equals(Object)}.
+     */
+    public void testEquals()
+    {
+        Point pNull = null;
+        int tryp = 5;
+        assertFalse(p1.equals(pNull));
+        assertFalse(p1.equals(tryp));
+        assertFalse(p1.equals(p3));
+        assertFalse(p3.equals(p1));
+        assertTrue(p1.equals(p1));
+        assertTrue(p1.equals(p2));
+        assertTrue(p2.equals(p1));
+    }
+
+    /**
+     * Test method for {@link Point#toString()}.
+     */
+    public void testToString()
+    {
+        assertEquals("(5,5)", p2.toString());
+    }
+}
