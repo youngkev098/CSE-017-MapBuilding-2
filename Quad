@@ -1,0 +1,312 @@
+import java.util.ArrayList;
+
+/**
+ * Implementation defines quadtree as a quadtree with 4 quadtrees as children
+ * simulating map grid.
+ * 
+ * 
+ */
+public class Quad
+{
+    private Point topLeft;
+    private Point botRight;
+
+    private Node<Point> element;
+
+    private Quad topLeftTree;
+    private Quad topRightTree;
+    private Quad botLeftTree;
+    private Quad botRightTree;
+
+    /**
+     * Create a quadtree. Find boundaries of quadtree.
+     * 
+     * @param topLeft
+     *            top-left point
+     * @param botRight
+     *            bottom-right point
+     */
+    public Quad(Point topLeft, Point botRight)
+    {
+        this.topLeft = topLeft;
+        this.botRight = botRight;
+
+        element = null;
+        topLeftTree = null;
+        topRightTree = null;
+        botLeftTree = null;
+        botRightTree = null;
+    }
+
+    /**
+     * Creates a new node object to be inserted into the quadtree.
+     * Big-O: O(logn)
+     * 
+     * @param x
+     *            x-coordinate of the point
+     * @param y
+     *            y-coordinate of the point
+     * @param description
+     *            of the point
+     */
+    public void insert(int x, int y, String description)
+    {
+        Point pt = new Point(x, y);
+        ArrayList<String> places = new ArrayList<String>();
+        places.add(description);
+
+        Node<Point> newNode = new Node<Point>(pt, places);
+        insert(newNode);
+    }
+
+    /**
+     * Helper method describing quadtree insertion algorithm.
+     * Big-O: O(logn)
+     * 
+     * @param newNode
+     *            new node object to be inserted
+     */
+    public void insert(Node<Point> newNode)
+    {
+        
+        // Base Case 1: null
+        if (newNode == null)
+        {
+            return;
+        }
+        // Base Case 3: At a quad of unit area
+        if (((botRight.getX() - topLeft.getX()) == 1)
+                && ((botRight.getY() - topLeft.getY()) == 1))
+        {
+            // if node field of quad is null set it to newNode
+            if (element == null)
+            {
+                element = newNode;
+                return;
+            }
+            // else add newNode description to the list of places
+            else
+            {
+                element.addPlace(newNode.getPlaces().get(0));
+                return;
+            }
+        }
+
+        // recursive insert call 1 --------------------------------
+        if ((newNode.getData().getX() <= (topLeft.getX() + botRight.getX()) / 2)
+                && (newNode.getData().getX() >= topLeft.getX())
+                && (newNode.getData().getY() <= (topLeft.getY() + botRight.getY()) / 2)
+                && (newNode.getData().getY() >= topLeft.getY()))
+        {
+            if (topLeftTree == null)
+            {
+                topLeftTree = new Quad(
+                        new Point(topLeft.getX(), topLeft.getY()),
+                        new Point(
+                                (topLeft.getX() + botRight.getX())
+                                        / 2,
+                                (topLeft.getY() + botRight.getY())
+                                        / 2));
+                
+            }
+            topLeftTree.insert(newNode);
+        }
+
+        // recursive insert call 2 --------------------------------
+        if ((newNode.getData().getX() <= (topLeft.getX() + botRight.getX()) / 2)
+                && (newNode.getData().getX() >= topLeft.getX())
+                && (newNode.getData().getY() > (topLeft.getY() + botRight.getY()) / 2)
+                && (newNode.getData().getY() <= botRight.getY()))
+        {
+            if (botLeftTree == null)
+            {
+                botLeftTree = new Quad(
+                        new Point(topLeft.getX(),
+                                (topLeft.getY() + botRight.getY())
+                                        / 2),
+                        new Point((topLeft.getX() + botRight.getX())
+                                / 2, botRight.getY()));
+            }
+            botLeftTree.insert(newNode);
+        }
+
+        // recursive insert call 3 --------------------------------
+        if ((newNode.getData().getX() > (botRight.getX() + topLeft.getX()) / 2)
+                && (newNode.getData().getX() <= botRight.getX())
+                && (newNode.getData().getY() >= (topLeft.getY()))
+                && (newNode.getData().getY() <= (botRight.getY() + topLeft.getY())/2))
+        {
+            if (topRightTree == null)
+            {
+                topRightTree = new Quad(
+                        new Point((topLeft.getX() + botRight.getX())
+                                / 2, topLeft.getY()),
+                        new Point(botRight.getX(),
+                                (topLeft.getY() + botRight.getY())
+                                        / 2));
+            }
+            topRightTree.insert(newNode);
+        }
+
+        // recursive insert call 4 --------------------------------
+        if ((newNode.getData().getX() > (botRight.getX() + topLeft.getX()) / 2)
+                && (newNode.getData().getX() <= botRight.getX())
+                && (newNode.getData().getY() > (botRight.getY() + topLeft.getY()) / 2)
+                && (newNode.getData().getY() <= botRight.getY()))
+        {
+            if (botRightTree == null)
+            {
+                botRightTree = new Quad(new Point(
+                        (topLeft.getX() + botRight.getX()) / 2,
+                        (topLeft.getY() + botRight.getY()) / 2),
+                        new Point(botRight.getX(), botRight.getY()));
+            }
+            botRightTree.insert(newNode);
+        }
+    }
+
+    /**
+     * Searches for a point on the map.
+     * Big-O: O(n)
+     * 
+     * @param x
+     *            x-coordinate of the point
+     * @param y
+     *            y-coordinate of the point
+     * @return Node found or null if not found
+     */
+    public Node<Point> search(int x, int y)
+    {
+        Point p = new Point(x, y);
+        return search(p);
+    }
+
+    /**
+     * Helper method describing quadtree search algorithm.
+     * Big-O: O(n)
+     * 
+     * @param p
+     *            point searching for
+     * @return Node of point or null if not found
+     */
+    public Node<Point> search(Point p)
+    {
+        // base case 1: current quad cannot contain P - outside of the boundaries
+        if (element != null)
+        {
+            return element;
+        }
+
+        // Recursive call 1: P in topLeftTree
+        if ((p.getX() <= (topLeft.getX() + botRight.getX()) / 2)
+                && (p.getX() >= topLeft.getX())
+                && (p.getY() <= (topLeft.getY() + botRight.getY()) / 2)
+                && (p.getY() >= topLeft.getY()))
+        {
+            if (topLeftTree == null)
+            {
+                return null;
+            } else
+            {
+                return topLeftTree.search(p);
+            }
+        }
+
+        // Recursive call 2: P in botLeftTree
+        if ((p.getX() <= (topLeft.getX() + botRight.getX()) / 2)
+                && (p.getX() >= topLeft.getX())
+                && (p.getY() > (topLeft.getY() + botRight.getY()) / 2)
+                && (p.getY() <= botRight.getY()))
+        {
+            if (botLeftTree == null)
+            {
+                return null;
+            } else
+            {                
+                return botLeftTree.search(p);
+            }
+        }
+
+        // Recursive call 3: P in topRightTree
+        if ((p.getX() > (botRight.getX() + topLeft.getX()) / 2)
+                && (p.getX() <= botRight.getX())
+                && (p.getY() >= (topLeft.getY()))
+                && (p.getY() <= (botRight.getY() + topLeft.getY())/2))
+        {
+            if (topRightTree == null)
+            {
+                return null;
+            } else
+            {               
+                return topRightTree.search(p);
+            }
+        }
+
+        // Recursive call 4: P in botRightTree
+        if ((p.getX() > (botRight.getX() + topLeft.getX()) / 2)
+                && (p.getX() <= botRight.getX())
+                && (p.getY() > (botRight.getY() + topLeft.getY()) / 2)
+                && (p.getY() <= botRight.getY()))
+        {
+            if (botRightTree == null)
+            {
+                return null;
+            } else
+            {                
+                return botRightTree.search(p);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Takes string representing the type of place/business the user is interested
+     * in and returns a list containing all the nodes with such places.
+     * Big-O: O(n)
+     * 
+     * @param type_of_place
+     *            place/business user is interested in
+     * @return ArrayList of nodes
+     */
+    public ArrayList<Node<Point>> search(String type_of_place)
+    {
+        ArrayList<Node<Point>> list = new ArrayList<Node<Point>>();
+        
+        return search(this, type_of_place, list);
+    }
+
+    /**
+     * Recursive method for searching with a string
+     * Big-O: O(n)
+     * @param root
+     *            quad searching in
+     * @param place
+     *            place/business user is interested in
+     * @param list
+     *            ArrayList of nodes
+     * @return ArrayList of nodes
+     */
+    public ArrayList<Node<Point>> search(Quad root, String place,
+            ArrayList<Node<Point>> list)
+    {
+        if (root == null)
+        {
+            return list;
+        }
+        
+        if (root.element != null)
+        {
+            if ((root.element.getPlaces()).contains(place))
+            {
+                list.add(root.element);
+            }
+            return list;
+        }
+        
+        search(root.topLeftTree, place, list);
+        search(root.topRightTree, place, list);
+        search(root.botLeftTree, place, list);
+        search(root.botRightTree, place, list);
+        return list;
+    }
+}
