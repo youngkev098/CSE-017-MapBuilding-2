@@ -1,0 +1,107 @@
+/**
+ * To create a map service, it is necessary to assign coordinates to all the
+ * points on a map.
+ *
+ */
+public class Point
+{
+    private int x;
+    private int y;
+
+    /**
+     * Create a point.
+     * 
+     * @param x
+     *            x-coordinate
+     * @param y
+     *            y-coordinate
+     */
+    public Point(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Gets the x-coordinate of the point.
+     * Big-O: O(1)
+     * 
+     * @return the x-coordinate of the point
+     */
+    public int getX() 
+    {
+        return x;
+    }
+
+    /**
+     * Sets the x-coordinate of the point to the specified value.
+     * Big-O: O(1)
+     * 
+     * @param value
+     *            the specified x-coordinate value
+     */
+    public void setX(int value) 
+    {
+        x = value;
+    }
+
+    /**
+     * Gets the y-coordinate of the point.
+     * Big-O: O(1)
+     * 
+     * @return the y-coordinate of the point
+     */
+    public int getY() 
+    {
+        return y;
+    }
+
+    /**
+     * Sets the y-coordinate of the point to the specified value.
+     * Big-O: O(1)
+     * 
+     * @param value
+     *            the specified y-coordinate value
+     */
+    public void setY(int value)
+    {
+        y = value;
+    }
+
+    /**
+     * Checks if points are identical.
+     * Big-O: O(1)
+     * 
+     * @param o
+     *            point
+     * @return true if object passed in is also a Point and has the same x-
+     *         and y-coordinates as the receiver
+     */
+    public boolean equals(Object o) 
+    {
+        if (o != null)
+        {
+            if (o instanceof Point)
+            {
+                if (this == o)
+                {
+                    return true;
+                }
+                return ((Point) o).getX() == this.getX()
+                        && ((Point) o).getY() == this.getY();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Strings x and y coordinates together.
+     * Big-O: O(1)
+     * 
+     * @return string representation of the point as (x,y)
+     */
+    public String toString() 
+    {
+        return "(" + this.x + "," + this.y + ")";
+    }
+}
