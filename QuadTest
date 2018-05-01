@@ -1,0 +1,134 @@
+import student.TestCase;
+
+/**
+ * Tests for the {@link Quad} class.
+ * 
+ * All members met and worked on the project together equally.
+ * @author Dawon Jeong (daj219) 33%
+ * @author Carolyn Wang (caw221) 34%
+ * @author Kyle Wojciechowski (kmw219) 33%
+ * @version 2018.04.27
+ */
+public class QuadTest extends TestCase
+{
+    private Quad main;
+
+    /**
+     * Create some new quadtrees for each test method.
+     */
+    public void setUp()
+    {
+        main = new Quad(new Point(0, 0), new Point(4, 4));
+    }
+
+    /**
+     * Test method for {@link Quad#insert(int, int, String)
+     *                        Quad#insert(Node) //recursive
+     *                        Quad#isValidPt(Point)
+     *                        Quad#search(int, int) 
+     *                        Quad#search(Point) //recursive
+     *                        Quad#search(String)
+     *                        Quad#search(Quad, String, ArrayList<Node<Point>>) //recursive}.
+     */
+    public void testInsert()
+    {   
+        assertNull(main.search(1, 1));
+        assertTrue(main.search("academic building").isEmpty());
+        
+        //in bounds
+        main.insert(1, 1, "academic building");
+        assertEquals("(1,1): [academic building]", main.search(1, 1).toString());
+        assertFalse(main.search("academic building").isEmpty());
+        assertEquals("(1,1)", main.search("academic building").get(0).getData().toString());
+        
+        assertTrue(main.search("bank").isEmpty());
+        main.insert(1, 3, "bank");
+        assertEquals("(1,3): [bank]", main.search(1, 3).toString());
+        assertFalse(main.search("bank").isEmpty());
+        assertEquals("(1,3)", main.search("bank").get(0).getData().toString());
+        
+        assertTrue(main.search("restaurant").isEmpty());
+        main.insert(3, 3, "restaurant");
+        assertEquals("(3,3): [restaurant]", main.search(3, 3).toString());
+        assertFalse(main.search("restaurant").isEmpty());
+        assertEquals("(3,3)", main.search("restaurant").get(0).getData().toString());
+        
+        assertTrue(main.search("dormitory").isEmpty());
+        main.insert(3, 1, "dormitory");
+        assertEquals("(3,1): [dormitory]", main.search(3, 1).toString());
+        assertFalse(main.search("dormitory").isEmpty());
+        assertEquals("(3,1)", main.search("dormitory").get(0).getData().toString());
+        
+        assertTrue(main.search("retail store").isEmpty());
+        main.insert(1, 2, "retail store");
+        assertEquals("(1,2): [retail store]", main.search(1, 2).toString());
+        assertFalse(main.search("retail store").isEmpty());
+        assertEquals("(1,2)", main.search("retail store").get(0).getData().toString());
+        
+        assertTrue(main.search("office building").isEmpty());
+        main.insert(2, 2, "office building");
+        assertEquals("(2,2): [office building]", main.search(2, 2).toString());
+        assertFalse(main.search("office building").isEmpty());
+        assertEquals("(2,2)", main.search("office building").get(0).getData().toString());
+        
+        //duplicates
+        main.insert(1, 1, "bank");
+        main.insert(1, 1, "restaurant");
+        main.insert(1, 1, "restaurant");
+        assertEquals("(1,1): [academic building, bank, restaurant, restaurant]", main.search(1, 1).toString());
+        assertEquals("(1,1)", main.search("bank").get(0).getData().toString());
+        assertEquals("(1,3)", main.search("bank").get(1).getData().toString());
+        main.insert(1, 2, "gas station");
+        assertEquals("(1,2): [retail store, gas station]", main.search(1, 2).toString());
+        assertEquals("(1,2)", main.search("gas station").get(0).getData().toString());
+        
+        //out of bounds
+        main.insert(-1, 1, "bank");
+        assertNull(main.search(-1, 1));
+        assertEquals("(1,1)", main.search("bank").get(0).getData().toString());
+        
+        main.insert(-1, 3, "Kyle");
+        assertNull(main.search(-1, 3));
+        assertTrue(main.search("Kyle").isEmpty());
+        
+        main.insert(1, -1, "Taco");
+        assertNull(main.search(1, -1));
+        assertTrue(main.search("Taco").isEmpty());
+        
+        main.insert(3, -1, "Wawa");
+        assertNull(main.search(3, -1));
+        assertTrue(main.search("Wawa").isEmpty());
+        
+        main.insert(5, 1, "Prof");
+        assertNull(main.search(5, 1));
+        assertTrue(main.search("Prof").isEmpty());
+        
+        main.insert(5, 3, "Fouh");
+        assertNull(main.search(5, 3));
+        assertTrue(main.search("Fouh").isEmpty());
+        
+        main.insert(5, 1, "ally");
+        assertNull(main.search(5, 1));
+        assertTrue(main.search("ally").isEmpty());
+        
+        main.insert(5, 3, "cool");
+        assertNull(main.search(5, 3));
+        assertTrue(main.search("cool").isEmpty());
+        
+        main.insert(-1, -1, "fish");
+        assertNull(main.search(-1, -1));
+        assertTrue(main.search("fish").isEmpty());
+        
+        main.insert(5, -1, "dogs");
+        assertNull(main.search(5, -1));
+        assertTrue(main.search("dogs").isEmpty());
+        
+        main.insert(5, 5, "isre");
+        assertNull(main.search(5, 5));
+        assertTrue(main.search("isre").isEmpty());
+        
+        main.insert(-1, 5, "hats");
+        assertNull(main.search(-1, 5));
+        assertTrue(main.search("hats").isEmpty());
+    }
+}
