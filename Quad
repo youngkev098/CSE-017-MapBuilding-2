@@ -17,6 +17,10 @@ public class Quad
     private Quad topRightTree;
     private Quad botLeftTree;
     private Quad botRightTree;
+    
+    // FOR JACY'S SEARCHSTREET METHODS (DELETE COMMENT LATER)
+    BinarySearchTree bst = new BinarySearchTree();
+    MinHeap heap = new MinHeap(); // Prob wrong... Says constructor MinHeap() is undefined
 
     /**
      * Create a quadtree. Find boundaries of quadtree.
@@ -308,5 +312,82 @@ public class Quad
         search(root.botLeftTree, place, list);
         search(root.botRightTree, place, list);
         return list;
+    }
+    
+    /**
+     * 
+     * @param streetName
+     *            is the name of the street
+     * @return all the locations on that street
+     */
+    public ArrayList<Node<Point>> streetSearch(String streetName) {
+        // says to return void but I don't get why it's void, so I just returned ArrayList
+        
+        StreetNodes streets = new StreetNodes(streetName);
+        
+        if (bst.find(streets) == null) {
+            return null;
+        }
+        else {
+            return streets.getPos();
+        }
+        
+        return null;
+    }
+
+    /**
+     * 
+     * @param streetName
+     *            is the name of the street
+     * @param type_of_place
+     *            is the type of place
+     * @return all the type_of_place locations on the street
+     */
+    public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
+        StreetNodes streets = new StreetNodes(streetName);
+        
+        if (bst.find(streets) == null) {
+            return null;
+        }
+        
+        if (bst.find(streets) != null) { // do we have getters/setters for position for type_of_place
+            if (type_of_place.getPos() == streets.getPos()) {
+                return type_of_place.getPos();
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * 
+     * returned in order of distance from the origin ascending update the distance
+     * field of the nodes and put all the nodes in a MinHeap call removeMin until
+     * the heap is empty
+     * 
+     * @param originX
+     *            the x coordinate of origin
+     * @param originY
+     *            the y coordinate of origin
+     * @param streetName
+     *            the name of the street
+     * @param type_of_place
+     *            the type of place
+     * @return all the type_of_place locations on the street
+     */
+    public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
+        StreetNodes streets = new StreetNodes(streetName);
+        
+        if (bst.find(streets) == null) {
+            return null;
+        }
+        
+        if (bst.find(streets) != null) {    // basically this is where I get confused ):
+            while (type_of_place.getPos() == streets.getPos()) { 
+                heap.insert(type_of_place.getPos());
+            }
+        }
+        
+        return null;
     }
 }
