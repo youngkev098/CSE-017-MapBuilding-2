@@ -12,7 +12,7 @@
 public class BinarySearchTree<T extends Comparable<? super T>> {
     // ~ Instance/static variables .............................................
 
-    private BinaryNode<T> root;
+    private StreetNodes root;
 
     // ~ Constructor ...........................................................
 
@@ -109,10 +109,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      *
      * @param node
      *            node
-     * @return element field or null
+     * @return data field or null
      */
-    private T elementAt(BinaryNode<T> node) {
-        return (node == null) ? null : node.getElement();
+    private T elementAt(StreetNodes node) {
+        return (node == null) ? null : node.getData();
     }
 
     // ----------------------------------------------------------
@@ -127,14 +127,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @throws DuplicateItemException
      *             if x is already present
      */
-    private BinaryNode<T> insert(T x, BinaryNode<T> node) {
+    private StreetNodes insert(T x, StreetNodes node) {
         if (node == null) {
-            return new BinaryNode<T>(x);
+            return new StreetNodes(x);
         } 
-        else if (x.compareTo(node.getElement()) < 0) {
+        else if (x.compareTo(node.getData()) < 0) {
             node.setLeft(insert(x, node.getLeft()));
         } 
-        else if (x.compareTo(node.getElement()) > 0) {
+        else if (x.compareTo(node.getData()) > 0) {
             node.setRight(insert(x, node.getRight()));
         } 
         else {
@@ -155,8 +155,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @throws ItemNotFoundException
      *             if x is not found
      */
-    private BinaryNode<T> remove(T x, BinaryNode<T> node) {
-        BinaryNode<T> result = node;
+    private StreetNodes remove(T x, StreetNodes node) {
+        StreetNodes result = node;
 
         if (node == null) {
             throw new ItemNotFoundException(x.toString());
@@ -191,7 +191,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      *            node that roots the tree
      * @return node containing the smallest item
      */
-    private BinaryNode<T> findMin(BinaryNode<T> node) {
+    private StreetNodes findMin(StreetNodes node) {
         if (node == null) {
             return node;
         } 
@@ -211,7 +211,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      *            node that roots the tree
      * @return node containing the largest item
      */
-    private BinaryNode<T> findMax(BinaryNode<T> node) {
+    private StreetNodes findMax(StreetNodes node) {
         if (node == null) {
             return node;
         } 
@@ -233,7 +233,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      *            node that roots the tree
      * @return node containing the matched item
      */
-    private BinaryNode<T> find(T x, BinaryNode<T> node) {
+    private StreetNodes find(T x, StreetNodes node) {
         if (node == null) {
             return null;
         } 
