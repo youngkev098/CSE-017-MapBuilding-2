@@ -314,10 +314,55 @@ public class Quad
         return list;
     }
     
-    /**
+     /**
+     * This updated insert method inserts the point, the description
+     * and the name of the street
      * 
-     * @param streetName
-     *            is the name of the street
+     * Big-O: O(n^2 * log4 n) //double check
+     * 
+     * @param x
+     *            is the x coordinate of the location
+     * @param y
+     *            is the y coordinate of the location
+     * @param description
+     *            is the type of business located at the point
+     * @param streets
+     *            is the name of the street the point is located on
+     */
+    public void insert(int x, int y, String description, String... streets) {
+        if (description == null || streets == null) {
+            return;
+        }
+        ArrayList<String> temp = new ArrayList<String>();
+        temp.add(description);
+        Node<Point> newNode = new Node<Point>(new Point(x, y), temp);
+        // check if point is outside of the bounds of the "map"
+        if (!this.ifInside(newNode.getDataPoint())) {                      
+            return;
+        }
+        // if newNode was not previously added to the Quad
+        if (!(search(description).contains(search(new Point(x, y))))) {
+            insert(newNode);
+        }
+        for (String s : streets) {
+            newNode.streets().add(s);
+            StreetNodes sNode = new StreetNodes(s);
+            StreetNodes find = streetNodesBST.find(sNode);
+            if (find == null) {
+                sNode.addPoint(newNode);
+                streetNodesBST.insert(sNode);
+            } 
+            else {
+                find.addPoint(newNode);
+            }
+        }
+    }
+
+    /**
+     * This method take a street name and returns 
+     * all the locations on that street.
+     * Big-O: O(log n) 
+     * @param streetName is the name of the street 
      * @return all the locations on that street
      */
     public ArrayList<Node<Point>> streetSearch(String streetName) {
@@ -333,6 +378,16 @@ public class Quad
         }
         
         return null;
+        // or 
+        //    public ArrayList<Node<Point>> streetSearch(String streetName) {
+//        String answer = streetNodesBST.find(new StreetNodes(streetName));
+//        if(answer == null) {
+//            return null;
+//        }
+//        else {
+//           return answer.locations(); 
+//        }
+//    
     }
 
     /**
