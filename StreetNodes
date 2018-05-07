@@ -1,3 +1,81 @@
-public class StreetNodes
-{
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class StreetNodes {
+
+    private String street;
+    private ArrayList<Node<Point>> streetLoc;
+    
+    
+    public StreetNodes(String street) 
+    {
+        this.street = street;
+        streetLoc = new ArrayList<Node<Point>>();
+    }
+    
+    /**
+     * Adds a Node to the list of nodes
+     */
+    public boolean addPoint(Node<Point> n)
+    {
+        streetLoc.add(n);
+        return true;   
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public String toString() 
+    {
+        return street + ": " + Arrays.toString(streetLoc.toArray());
+    }
+    
+    /**
+     * Compares street names
+     * @return 
+     */
+    public int compareTo(StreetNodes o)
+    {
+        
+    }
+    
+
+    // Getters and Setters ====================================================
+    /**
+     * Getter for the street
+     * @return street
+     */
+    public String getStreet() 
+    {
+        return street;
+    }
+    
+    /**
+     * Set the new street
+     * @param street to be set
+     */
+    public void setStreet(String street)
+    {
+        this.street = street;
+    }
+    
+    /**
+     * Get the arraylist of the locations on a street
+     * @return streetLoc locations
+     */
+    public ArrayList<Node<Point>> getStreetLoc()
+    {
+        return streetLoc;
+    }
+    
+    /**
+     * Set the arraylist for the streets
+     * @param streetLoc to be set
+     */
+    public void setStreetLoc(ArrayList<Node<Point>> streetLoc) 
+    {
+        this.streetLoc = streetLoc;
+    }
+    // ========================================================================
 }
