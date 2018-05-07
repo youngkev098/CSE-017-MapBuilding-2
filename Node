@@ -11,6 +11,7 @@ public class Node<T> implements Comparable <Node<T>>
     private T data;
     private ArrayList<String> places;
     private ArrayList<String> streets;
+    private double distance;
 
     /**
      * Create a node.
@@ -25,8 +26,10 @@ public class Node<T> implements Comparable <Node<T>>
         this.data = data;
         this.places = places;
         this.setStreets(null);
+        distance = 0;
     }
 
+    // Getters and Setters ================================================
     /**
      * Gets the Point data.
      * Big-O: O(1)
@@ -87,7 +90,24 @@ public class Node<T> implements Comparable <Node<T>>
     public void setStreets(ArrayList<String> streets) {
         this.streets = streets;
     }
-
+    
+    /**
+    * @return the distance
+    */
+    public double getDistance()
+    {
+        return distance;
+    }
+    
+    /**
+    * @param distance the distance to set
+    */
+    public void setDistance(double distance)
+    {
+        this.distance = distance;
+    }
+    //=====================================================================
+    
     /**
      * Adds place to end of the array list of places.
      * Big-O: O(1)
@@ -115,18 +135,18 @@ public class Node<T> implements Comparable <Node<T>>
     /**
      * This method should compare the distances of Node objects
      * @param o
-     * @return
+     * @return int value representing distance
      */
     public int compareTo(Node<T> o) {
         if (o != null)
         {
             if (this.distance < o.distance)
             {
-                return -1;
+                return 1;
             }
             if (this.distance > o.distance)
             {
-                return 1;
+                return -1;
             }
             if (this.distance == o.distance)
             {
