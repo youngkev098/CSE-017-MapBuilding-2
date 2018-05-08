@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class StreetNodes {
+public class StreetNodes implements Comparable<StreetNodes> {
 
     private String street;
     private ArrayList<Node<Point>> streetLoc;
@@ -18,8 +18,12 @@ public class StreetNodes {
      */
     public boolean addPoint(Node<Point> n)
     {
-        streetLoc.add(n);
-        return true;   
+        if (n != null && streetLoc.contains(n) == true)
+        {
+            streetLoc.add(n);
+            return true; 
+        }
+        return false;
     }
     
     /**
@@ -37,7 +41,14 @@ public class StreetNodes {
      */
     public int compareTo(StreetNodes o)
     {
-        
+        if (o != null)
+        {
+            if (this.street.equals(o.street))
+            {
+                return 0;
+            }
+        }
+        return -1;
     }
     
 
@@ -78,4 +89,5 @@ public class StreetNodes {
         this.streetLoc = streetLoc;
     }
     // ========================================================================
+
 }
