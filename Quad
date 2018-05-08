@@ -384,6 +384,22 @@ public class Quad
      *            is the type of place
      * @return all the type_of_place locations on the street
      */
+    // public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
+      // StreetNodes answer = streetNodesBST.find(new StreetNodes(streetName));
+       //if (answer == null ) {
+           return null;
+       //} 
+      // ArrayList<Node<Point>> final = new  ArrayList<Node<Point>>();
+       //ArrayList<Node<Point>> locations = answer.locations();
+       //for(Node<Point> n: locations) {
+         //  if (n.descriptions().contains(type_of_place)) {
+           //    final.add(n);
+          // }
+      // }
+       //return final;
+   // }
+    /**
+
     public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
         StreetNodes streets = new StreetNodes(streetName);
         
