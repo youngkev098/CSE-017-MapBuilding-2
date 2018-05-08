@@ -19,8 +19,8 @@ public class Quad
     private Quad botRightTree;
     
     // FOR JACY'S SEARCHSTREET METHODS (DELETE COMMENT LATER)
-    BinarySearchTree bst = new BinarySearchTree();
-    MinHeap heap = new MinHeap(); // Prob wrong... Says constructor MinHeap() is undefined
+    private BinarySearchTree<StreetNodes> bst;
+    private MinHeap heap; // Prob wrong... Says constructor MinHeap() is undefined
 
     /**
      * Create a quadtree. Find boundaries of quadtree.
@@ -40,6 +40,8 @@ public class Quad
         topRightTree = null;
         botLeftTree = null;
         botRightTree = null;
+        
+        bst = new BinarySearchTree<StreetNodes>();
     }
 
     /**
@@ -314,6 +316,21 @@ public class Quad
         return list;
     }
     
+    /**
+     * @param point1
+     *            is the point
+     * @return if the point is in the bounds
+     * 
+     *         O(1)
+     */
+    public boolean check(Point point1) {
+        if (point1.getX() <= botRight.getX() && point1.getY() <= botRight.getY() && point1.getX() > topLeft.getX()
+                && point1.getY() > topLeft.getY()) {
+            return true;
+        }
+        return false;
+    }
+    
      /**
      * This updated insert method inserts the point, the description
      * and the name of the street
@@ -337,7 +354,7 @@ public class Quad
         temp.add(description);
         Node<Point> newNode = new Node<Point>(new Point(x, y), temp);
         // check if point is outside of the bounds of the "map"
-        if (!this.ifInside(newNode.getDataPoint())) {                      
+        if (!this.check(newNode.getData())) {                      
             return;
         }
         // if newNode was not previously added to the Quad
@@ -345,12 +362,12 @@ public class Quad
             insert(newNode);
         }
         for (String s : streets) {
-            newNode.streets().add(s);
+            newNode.getStreets().add(s);
             StreetNodes sNode = new StreetNodes(s);
-            StreetNodes find = streetNodesBST.find(sNode);
+            StreetNodes find = bst.find(sNode);
             if (find == null) {
                 sNode.addPoint(newNode);
-                streetNodesBST.insert(sNode);
+                bst.insert(sNode);
             } 
             else {
                 find.addPoint(newNode);
@@ -358,24 +375,42 @@ public class Quad
         }
     }
 
+    
+
+    //=========================================================================
+    
     /**
-     * 
-     * @param streetName
-     *            is the name of the street
+     * This method take a street name and returns 
+     * all the locations on that street.
+     * Big-O: O(log n) 
+     * @param streetName is the name of the street 
      * @return all the locations on that street
      */
+    public ArrayList<Node<Point>> streetSearch(String streetName) 
+    {
+        StreetNodes temp = new StreetNodes(streetName);
+        ArrayList<Node<Point>> answer = new ArrayList<Node<Point>>();
 
-    public ArrayList<Node<Point>> streetSearch(String streetName) {
-        String answer = streetNodesBST.find(new StreetNodes(streetName));
-
-        if (answer == null) {
-            return null;
-        } 
-        else {
-            return answer.locations();
+        return streetSearch(temp, streetName, answer);
+    }
+    
+    public ArrayList<Node<Point>> streetSearch(StreetNodes temp, String streetName,
+            ArrayList<Node<Point>> answer)
+    {
+        if (bst == null)
+        {
+            return answer;
         }
+        
+        if (bst.find(temp) != null)
+        {
+            answer.add(n);
+        }
+        return answer;
     }
 
+    
+    //=========================================================================
     /**
      * 
      * @param streetName
@@ -384,22 +419,36 @@ public class Quad
      *            is the type of place
      * @return all the type_of_place locations on the street
      */
-    public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
-        StreetNodes answer = streetNodesBST.find(new StreetNodes(streetName));
+    // public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
+      // StreetNodes answer = streetNodesBST.find(new StreetNodes(streetName));
+       //if (answer == null ) {
+        //   return null;
+       //} 
+      // ArrayList<Node<Point>> final = new  ArrayList<Node<Point>>();
+       //ArrayList<Node<Point>> locations = answer.locations();
+       //for(Node<Point> n: locations) {
+         //  if (n.descriptions().contains(type_of_place)) {
+           //    final.add(n);
+          // }
+      // }
+       //return final;
+   // }
+    /**
 
-        if (answer == null) {
+    public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
+        StreetNodes streets = new StreetNodes(streetName);
+        
+        if (bst.find(streets) == null) {
             return null;
         }
-
-        ArrayList<Node<Point>> fin = new ArrayList<Node<Point>>();
-        ArrayList<Node<Point>> locations = answer.locations();
-
-        for (Node<Point> n : locations) {
-            if (n.descriptions().contains(type_of_place)) {
-                fin.add(n);
+        
+        if (bst.find(streets) != null) { // do we have getters/setters for position for type_of_place
+            if (type_of_place.getPos() == streets.getPos()) {
+                return type_of_place.getPos();
             }
-            return fin;
         }
+        
+        return null;
     }
 
     /**
@@ -407,6 +456,8 @@ public class Quad
      * returned in order of distance from the origin ascending update the distance
      * field of the nodes and put all the nodes in a MinHeap call removeMin until
      * the heap is empty
+     *
+     * O(nlogn)
      * 
      * @param originX
      *            the x coordinate of origin
@@ -418,23 +469,36 @@ public class Quad
      *            the type of place
      * @return all the type_of_place locations on the street
      */
-    /** public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
-        if (!contains(new Point(originX, originY))) {
+    public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
+        StreetNodes streets = new StreetNodes(streetName);
+        
+        if (bst.find(streets) == null) {
             return null;
         }
         
-        ArrayList<Node<Point>> location = streetSearch(streetName, type_of_place);
+        if (bst.find(streets) != null) {    // basically this is where I get confused ):
+            while (type_of_place.getPos() == streets.getPos()) { 
+                heap.insert(type_of_place.getPos());
+            }
+        }
         
+        return null;
+    }
+    /**
+        public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
+//origin is not on the map 
+if(!contains(new Point(originX, originY))) {
+            return null;
+        }
+          ArrayList<Node<Point>> location = streetSearch(streetName, type_of_place);
         if (location == null) {
             return null;
         }
-        
-        ArrayList<Node<Point>> newNodes = new ArrayList<Node<Point>>();
-        
-        for (Node<Point> n : location()) {
+         ArrayList<Node<Point>> newNodes = new ArrayList<Node<Point>>();
+      for (Node<Point> n: location) {
             n.distance(Math.sqrt(Math.pow((originX - n.point().x()), 2) + Math.pow((originY - n.point().y()), 2)));
             newNodes.add(n);
         }
-    }
-    **/
+    
+       */
 }
