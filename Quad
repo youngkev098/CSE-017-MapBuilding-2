@@ -421,6 +421,8 @@ public class Quad
      * returned in order of distance from the origin ascending update the distance
      * field of the nodes and put all the nodes in a MinHeap call removeMin until
      * the heap is empty
+     *
+     * O(nlogn)
      * 
      * @param originX
      *            the x coordinate of origin
@@ -458,7 +460,7 @@ if(!contains(new Point(originX, originY))) {
             return null;
         }
          ArrayList<Node<Point>> newNodes = new ArrayList<Node<Point>>();
-      for (Node<Point> n: loc) {
+      for (Node<Point> n: location) {
             n.distance(Math.sqrt(Math.pow((originX - n.point().x()), 2) + Math.pow((originY - n.point().y()), 2)));
             newNodes.add(n);
         }
