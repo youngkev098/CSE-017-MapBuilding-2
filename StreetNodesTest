@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+
+import student.TestCase;
+
+public class StreetNodeTest extends TestCase 
+{
+    
+    private Node<Point> node1;
+    
+    private Point p1;
+    
+    private ArrayList<String> places1;
+    
+    private StreetNodes sn1;
+    private ArrayList<Node<Point>> sl1;
+    
+
+    public void setUp()
+    {
+        sn1 = new StreetNodes("Packer Ave");
+        
+        p1 = new Point(1, 1);
+        places1 = new ArrayList<String>();
+        node1 = new Node<Point>(p1, places1);
+        
+        sl1 = new ArrayList<Node<Point>>();
+        
+    }
+    
+    /**
+     * Test method for {@link StreetNodes#addPoint(Node<Point> n)
+     *                        StreetNodes#toString()
+     *                        StreetNodes#compareTo(StreetNodes o)
+     *                        StreetNodes#getStreet()
+     *                        StreetNodes#setStreet(String street)
+     *                        StreetNodes#getStreetLoc()
+     *                        StreetNodes#setStreetLoc(ArrayList<Node<Point>> streetLoc)}.
+     */
+    public void testToString()
+    {
+        assertEquals("Packer Ave", sn1.getStreet());
+        sn1.setStreet("Memorial Dr");
+        assertEquals("[]", sn1.getStreetLoc().toString());
+        node1.getPlaces().add("Bus Stop");
+        sn1.addPoint(node1);
+        assertEquals("[(1,1): [Bus Stop]]", sn1.getStreetLoc().toString());
+        assertEquals("Memorial Dr: [(1,1): [Bus Stop]]", sn1.toString());
+        
+        
+        Point p2 = new Point(1, 2);
+        ArrayList<String> places2 = new ArrayList<String>();
+        Node<Point> node2 = new Node<Point>(p2, places2);
+        
+        sn1.setStreetLoc(sl1);
+        sn1.addPoint(node2);
+        assertEquals("[(1,2): []]", sn1.getStreetLoc().toString());
+        sn1.setStreet("Packer Ave");
+        
+        StreetNodes sn2 = new StreetNodes("Webster St");
+        assertFalse(sn1.compareTo(sn2) == 0);
+        sn2.setStreet("Packer Ave");
+        assertTrue(sn1.compareTo(sn2) == 0);
+    }
+}
