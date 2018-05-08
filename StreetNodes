@@ -18,7 +18,7 @@ public class StreetNodes implements Comparable<StreetNodes> {
      */
     public boolean addPoint(Node<Point> n)
     {
-        if (n != null && streetLoc.contains(n) == true)
+        if (n != null && streetLoc.contains(n) == false)
         {
             streetLoc.add(n);
             return true; 
