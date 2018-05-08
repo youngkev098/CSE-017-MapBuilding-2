@@ -131,4 +131,53 @@ public class QuadTest extends TestCase
         assertNull(main.search(-1, 5));
         assertTrue(main.search("hats").isEmpty());
     }
+    
+    /**
+     * class testing street search methods
+     */
+    public void testStreetSearch() {        
+        // testing null
+        ArrayList<String> nullAnswer = new ArrayList<String>();
+        assertEquals(nullAnswer, main.streetSearch("The Bank"));
+        
+        // adding street and location
+        Point p1 = new Point(1, 1);
+        ArrayList<String> place1 = new ArrayList<String>();
+        place1.add("The Bank");         
+        ArrayList<String> street1 = new ArrayList<String>();
+        street1.add("Alphabet");
+
+        // node: 1, 1, "The Bank" Place
+        Node<Point> node1 = new Node<Point>(p1, place1);
+        // node: 1, 1, "Alphabet" Street
+        Node<Point> node2 = new Node<Point>(p1, street1);
+        
+        ArrayList<Node<Point>> listOfPlaces = new ArrayList<Node<Point>>();
+        listOfPlaces.add(node1);
+        ArrayList<Node<Point>> listOfStreets = new ArrayList<Node<Point>>();
+        listOfStreets.add(node2);
+        
+        assertEquals(listOfPlaces, main.streetSearch("Alphabet"));
+        
+        // extending street
+        Point p2 = new Point(0, 1);
+        Point p3 = new Point(2, 1);
+        Node<Point> node3 = new Node<Point>(p2, street1);
+        Node<Point> node4 = new Node<Point>(p3, street1);
+        listOfStreets.add(node3);
+        listOfStreets.add(node4);
+        
+        // adding location on street
+        place1.add("Restaurant");
+        Node<Point> node5 = new Node<Point>(p2, place1);
+        listOfPlaces.add(node5);
+        
+        assertEquals(listOfPlaces, main.streetSearch("Alphabet"));
+        
+        place1.add("Restaurant");
+        Node<Point> node6 = new Node<Point>(p1, place1);
+        listOfPlaces.add(node6);
+        
+        assertEquals(listOfPlaces, main.streetSearch("Alphabet", "Restaurant"));
+    }
 }
