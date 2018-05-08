@@ -46,15 +46,17 @@ public class StreetNodeTest extends TestCase
         assertEquals("[(1,1): [Bus Stop]]", sn1.getStreetLoc().toString());
         assertEquals("Memorial Dr: [(1,1): [Bus Stop]]", sn1.toString());
         
-        
         Point p2 = new Point(1, 2);
         ArrayList<String> places2 = new ArrayList<String>();
         Node<Point> node2 = new Node<Point>(p2, places2);
+        node2.addPlace("Packard");
+        node2.addPlace("Neville");
+        node2.addPlace("Mudd");
         
         sn1.setStreetLoc(sl1);
         sn1.addPoint(node2);
-        assertEquals("[(1,2): []]", sn1.getStreetLoc().toString());
         sn1.setStreet("Packer Ave");
+        assertEquals("Packer Ave: [(1,2): [Packard, Neville, Mudd]]", sn1.toString());
         
         StreetNodes sn2 = new StreetNodes("Webster St");
         assertFalse(sn1.compareTo(sn2) == 0);
