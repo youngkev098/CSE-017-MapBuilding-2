@@ -366,28 +366,14 @@ public class Quad
      * @return all the locations on that street
      */
     public ArrayList<Node<Point>> streetSearch(String streetName) {
-        // says to return void but I don't get why it's void, so I just returned ArrayList
+        String answer = streetNodesBST.find(new StreetNodes(streetName));
         
-        StreetNodes streets = new StreetNodes(streetName);
-        
-        if (bst.find(streets) == null) {
+        if(answer == null) {
             return null;
         }
         else {
-            return streets.getPos();
+            return answer.locations(); 
         }
-        
-        return null;
-        // or 
-        //    public ArrayList<Node<Point>> streetSearch(String streetName) {
-//        String answer = streetNodesBST.find(new StreetNodes(streetName));
-//        if(answer == null) {
-//            return null;
-//        }
-//        else {
-//           return answer.locations(); 
-//        }
-//    
     }
 
     /**
