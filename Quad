@@ -447,4 +447,21 @@ public class Quad
         
         return null;
     }
+    /**
+        public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
+//origin is not on the map 
+if(!contains(new Point(originX, originY))) {
+            return null;
+        }
+          ArrayList<Node<Point>> location = streetSearch(streetName, type_of_place);
+        if (location == null) {
+            return null;
+        }
+         ArrayList<Node<Point>> newNodes = new ArrayList<Node<Point>>();
+      for (Node<Point> n: loc) {
+            n.distance(Math.sqrt(Math.pow((originX - n.point().x()), 2) + Math.pow((originY - n.point().y()), 2)));
+            newNodes.add(n);
+        }
+    
+       */
 }
