@@ -359,20 +359,20 @@ public class Quad
     }
 
     /**
-     * This method take a street name and returns 
-     * all the locations on that street.
-     * Big-O: O(log n) 
-     * @param streetName is the name of the street 
+     * 
+     * @param streetName
+     *            is the name of the street
      * @return all the locations on that street
      */
+
     public ArrayList<Node<Point>> streetSearch(String streetName) {
         String answer = streetNodesBST.find(new StreetNodes(streetName));
-        
-        if(answer == null) {
+
+        if (answer == null) {
             return null;
-        }
+        } 
         else {
-            return answer.locations(); 
+            return answer.locations();
         }
     }
 
@@ -384,36 +384,22 @@ public class Quad
      *            is the type of place
      * @return all the type_of_place locations on the street
      */
-    // public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
-      // StreetNodes answer = streetNodesBST.find(new StreetNodes(streetName));
-       //if (answer == null ) {
-           return null;
-       //} 
-      // ArrayList<Node<Point>> final = new  ArrayList<Node<Point>>();
-       //ArrayList<Node<Point>> locations = answer.locations();
-       //for(Node<Point> n: locations) {
-         //  if (n.descriptions().contains(type_of_place)) {
-           //    final.add(n);
-          // }
-      // }
-       //return final;
-   // }
-    /**
-
     public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
-        StreetNodes streets = new StreetNodes(streetName);
-        
-        if (bst.find(streets) == null) {
+        StreetNodes answer = streetNodesBST.find(new StreetNodes(streetName));
+
+        if (answer == null) {
             return null;
         }
-        
-        if (bst.find(streets) != null) { // do we have getters/setters for position for type_of_place
-            if (type_of_place.getPos() == streets.getPos()) {
-                return type_of_place.getPos();
+
+        ArrayList<Node<Point>> fin = new ArrayList<Node<Point>>();
+        ArrayList<Node<Point>> locations = answer.locations();
+
+        for (Node<Point> n : locations) {
+            if (n.descriptions().contains(type_of_place)) {
+                fin.add(n);
             }
+            return fin;
         }
-        
-        return null;
     }
 
     /**
@@ -421,8 +407,6 @@ public class Quad
      * returned in order of distance from the origin ascending update the distance
      * field of the nodes and put all the nodes in a MinHeap call removeMin until
      * the heap is empty
-     *
-     * O(nlogn)
      * 
      * @param originX
      *            the x coordinate of origin
@@ -434,36 +418,24 @@ public class Quad
      *            the type of place
      * @return all the type_of_place locations on the street
      */
-    public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
-        StreetNodes streets = new StreetNodes(streetName);
-        
-        if (bst.find(streets) == null) {
+    /** public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
+        if (!contains(new Point(originX, originY))) {
             return null;
         }
         
-        if (bst.find(streets) != null) {    // basically this is where I get confused ):
-            while (type_of_place.getPos() == streets.getPos()) { 
-                heap.insert(type_of_place.getPos());
-            }
-        }
+        ArrayList<Node<Point>> location = streetSearch(streetName, type_of_place);
         
-        return null;
-    }
-    /**
-        public ArrayList<Node<Point>> streetSearch(int originX, int originY, String streetName, String type_of_place) {
-//origin is not on the map 
-if(!contains(new Point(originX, originY))) {
-            return null;
-        }
-          ArrayList<Node<Point>> location = streetSearch(streetName, type_of_place);
         if (location == null) {
             return null;
         }
-         ArrayList<Node<Point>> newNodes = new ArrayList<Node<Point>>();
-      for (Node<Point> n: location) {
+        
+        ArrayList<Node<Point>> newNodes = new ArrayList<Node<Point>>();
+        
+        for (Node<Point> n : location()) {
             n.distance(Math.sqrt(Math.pow((originX - n.point().x()), 2) + Math.pow((originY - n.point().y()), 2)));
             newNodes.add(n);
         }
-    
-       */
+    }
+    **/
+}
 }
