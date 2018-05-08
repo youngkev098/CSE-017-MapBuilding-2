@@ -397,14 +397,9 @@ public class Quad
     public ArrayList<Node<Point>> streetSearch(StreetNodes temp, String streetName,
             ArrayList<Node<Point>> answer)
     {
-        if (bst == null)
-        {
-            return answer;
-        }
-        
         if (bst.find(temp) != null)
         {
-            answer.add(n);
+            answer.addAll(bst.find(temp).getStreetLoc());
         }
         return answer;
     }
