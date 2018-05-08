@@ -386,17 +386,11 @@ public class Quad
      * @param streetName is the name of the street 
      * @return all the locations on that street
      */
-    public ArrayList<Node<Point>> streetSearch(String streetName) 
+        public ArrayList<Node<Point>> streetSearch(String streetName) 
     {
         StreetNodes temp = new StreetNodes(streetName);
         ArrayList<Node<Point>> answer = new ArrayList<Node<Point>>();
 
-        return streetSearch(temp, streetName, answer);
-    }
-    
-    public ArrayList<Node<Point>> streetSearch(StreetNodes temp, String streetName,
-            ArrayList<Node<Point>> answer)
-    {
         if (bst.find(temp) != null)
         {
             answer.addAll(bst.find(temp).getStreetLoc());
