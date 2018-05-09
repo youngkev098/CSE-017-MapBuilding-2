@@ -6,7 +6,9 @@ import student.TestCase;
  * Tests for the {@link Quad} class.
  * 
  * @author Dawon Jeong 50%
+ *          tested the insert and streetSearch methods
  * @author Jacy Yang 50%
+ *          tested the insert and streetSearch methods
  * @author Kyle Williams 0%
  * @version 2018.05.08
  */
