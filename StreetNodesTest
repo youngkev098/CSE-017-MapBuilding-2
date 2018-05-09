@@ -2,6 +2,12 @@ import java.util.ArrayList;
 
 import student.TestCase;
 
+/**
+ * Test class for the {@link StreetNodes class}
+ * @author Dawon Jeong 100%
+ * @author Jacy Yang 0%
+ * @author Kevin Williams 0%
+ */
 public class StreetNodeTest extends TestCase 
 {
     
@@ -24,7 +30,6 @@ public class StreetNodeTest extends TestCase
         node1 = new Node<Point>(p1, places1);
         
         sl1 = new ArrayList<Node<Point>>();
-        
     }
     
     /**
@@ -60,7 +65,6 @@ public class StreetNodeTest extends TestCase
         sn1.getStreetLoc().add(node1);
         assertEquals("Packer Ave: [(1,2): [Packard, Neville, Mudd], "
                 + "(1,1): [Bus Stop]]", sn1.toString());
-        
         
         StreetNodes sn2 = new StreetNodes("Webster St");
         assertFalse(sn1.compareTo(sn2) == 0);
