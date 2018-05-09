@@ -6,8 +6,11 @@ import java.util.ArrayList;
  * simulating map grid.
  * 
  * @author Dawon Jeong 50%
+ *          debugging insert and streetSearch methods
  * @author Jacy Yang 40%
+ *          debugging insert and streetSearch methods along with Big-O
  * @author Kevin Williams 10%
+ *          initial implementation of insert and streetSearch methods
  */
 public class Quad
 {
