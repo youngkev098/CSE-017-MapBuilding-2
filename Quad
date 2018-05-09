@@ -31,6 +31,8 @@ public class Quad
      *            top-left point
      * @param botRight
      *            bottom-right point
+     *
+     * O(n)
      */
     public Quad(Point topLeft, Point botRight)
     {
@@ -48,6 +50,8 @@ public class Quad
     
     /**
      * @return bst 
+     *
+     * O(1)
      */
     public BinarySearchTree<StreetNodes> getBst()
     {
@@ -55,6 +59,8 @@ public class Quad
     }
     /**
      * @param bst
+     *
+     * O(1)
      */
     public void setBst(BinarySearchTree<StreetNodes> bst)
     {
@@ -423,6 +429,8 @@ public class Quad
      * @param type_of_place
      *            is the type of place
      * @return all the type_of_place locations on the street
+     *
+     * O(logn)
      */
     public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
         StreetNodes temp = new StreetNodes(streetName);
