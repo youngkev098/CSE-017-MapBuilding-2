@@ -408,38 +408,21 @@ public class Quad
      *            is the type of place
      * @return all the type_of_place locations on the street
      */
-    // public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
-      // StreetNodes answer = streetNodesBST.find(new StreetNodes(streetName));
-       //if (answer == null ) {
-        //   return null;
-       //} 
-      // ArrayList<Node<Point>> final = new  ArrayList<Node<Point>>();
-       //ArrayList<Node<Point>> locations = answer.locations();
-       //for(Node<Point> n: locations) {
-         //  if (n.descriptions().contains(type_of_place)) {
-           //    final.add(n);
-          // }
-      // }
-       //return final;
-   // }
-    /**
-
-    public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
-        StreetNodes streets = new StreetNodes(streetName);
+     public ArrayList<Node<Point>> streetSearch(String streetName, String type_of_place) {
+         StreetNodes temp = new StreetNodes(streetName);
+         ArrayList<Node<Point>> tempLoc = new ArrayList<Node<Point>>();
+         temp.setStreetLoc(tempLoc);
         
-        if (bst.find(streets) == null) {
-            return null;
-        }
+         ArrayList<Node<Point>> answer = new ArrayList<Node<Point>>();
         
-        if (bst.find(streets) != null) { // do we have getters/setters for position for type_of_place
-            if (type_of_place.getPos() == streets.getPos()) {
-                return type_of_place.getPos();
-            }
-        }
-        
-        return null;
+         if (bst.find(temp) != null && bst.find(temp).getStreetLoc().contains(type_of_place))
+         {
+             answer.addAll(bst.find(temp).getStreetLoc());
+         }
+         return answer;
     }
-
+    
+    //=========================================================================
     /**
      * 
      * returned in order of distance from the origin ascending update the distance
