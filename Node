@@ -5,6 +5,9 @@ import java.util.*;
  * location.
  * 
  * @param <T> Point
+ * @author Dawon Jeong 100%
+ * @author Jacy Yang 0%
+ * @author Kevin Williams 0%
  */
 public class Node<T> implements Comparable <Node<T>>
 {
@@ -25,15 +28,13 @@ public class Node<T> implements Comparable <Node<T>>
     {
         this.data = data;
         this.places = places;
-        this.setStreets(null);
+        this.streets = new ArrayList<String>();
         distance = 0;
     }
 
-    // Getters and Setters ================================================
     /**
      * Gets the Point data.
      * Big-O: O(1)
-     * 
      * @return the string representation of the point
      */
     public T getData() 
@@ -44,7 +45,6 @@ public class Node<T> implements Comparable <Node<T>>
     /**
      * Sets the Point data to the specified point.
      * Big-O: O(1)
-     * 
      * @param data
      *            the specified point
      */
@@ -55,8 +55,7 @@ public class Node<T> implements Comparable <Node<T>>
 
     /**
      * Gets the Array list of places.
-     * Big-O: O(n)
-     * 
+     * Big-O: O(1)
      * @return the string representation of the list of places
      */
     public ArrayList<String> getPlaces()
@@ -66,8 +65,7 @@ public class Node<T> implements Comparable <Node<T>>
 
     /**
      * Sets the array list of places to the specified linked list.
-     * Big-O: O(n)
-     * 
+     * Big-O: O(1)
      * @param places
      *            the specified linked list of places
      */
@@ -78,36 +76,43 @@ public class Node<T> implements Comparable <Node<T>>
     
 
     /**
+     * Get the street this node is on
      * @return the streets
+     * big-O: O(1)
      */
     public ArrayList<String> getStreets() {
         return streets;
     }
 
     /**
+     * Sets the array list of adjacent streets to the specified linked list
      * @param streets the streets to set
+     * big-O: O(1)
      */
     public void setStreets(ArrayList<String> streets) {
         this.streets = streets;
     }
     
     /**
-    * @return the distance
-    */
+     * Gets the distance of the Node
+     * @return distance of the node
+     * big-O: O(1)
+     */
     public double getDistance()
     {
         return distance;
     }
     
     /**
-    * @param distance the distance to set
-    */
+     * Sets the distance of the Node
+     * @param distance of the node
+     * big-O: O(1)
+     */
     public void setDistance(double distance)
     {
         this.distance = distance;
     }
-    //=====================================================================
-    
+
     /**
      * Adds place to end of the array list of places.
      * Big-O: O(1)
@@ -136,17 +141,18 @@ public class Node<T> implements Comparable <Node<T>>
      * This method should compare the distances of Node objects
      * @param o
      * @return int value representing distance
+     * big-O: O(1)
      */
     public int compareTo(Node<T> o) {
         if (o != null)
         {
             if (this.distance < o.distance)
             {
-                return 1;
+                return -1;
             }
             if (this.distance > o.distance)
             {
-                return -1;
+                return 1;
             }
             if (this.distance == o.distance)
             {
@@ -155,7 +161,6 @@ public class Node<T> implements Comparable <Node<T>>
         }
         return 0;
     }
-
     
     
 }
