@@ -1,12 +1,23 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author Dawon Jeong 80%
+ * @author Jacy Yang 20%
+ * @author Kevin Williams 0%
+ */
+
 public class StreetNodes implements Comparable<StreetNodes> {
 
     private String street;
     private ArrayList<Node<Point>> streetLoc;
     
     
+    /**
+     * Creates a new StreetNode with a street and a list of all the locations on that street
+     * @param street name
+     * Big-O: O(1)
+     */
     public StreetNodes(String street) 
     {
         this.street = street;
@@ -15,6 +26,9 @@ public class StreetNodes implements Comparable<StreetNodes> {
     
     /**
      * Adds a Node to the list of nodes
+     * @param n of a street and the places on that street
+     * @return boolean true or false whether the point has been added
+     * Big-O: O(1)
      */
     public boolean addPoint(Node<Point> n)
     {
@@ -27,8 +41,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     }
     
     /**
-     * 
-     * @return
+     * To string method
+     * @return the street and the locations on that street in string form
      */
     public String toString() 
     {
@@ -37,7 +51,7 @@ public class StreetNodes implements Comparable<StreetNodes> {
     
     /**
      * Compares street names
-     * @return 
+     * @return 0 if the streets are the same and -1 if they are not
      */
     public int compareTo(StreetNodes o)
     {
