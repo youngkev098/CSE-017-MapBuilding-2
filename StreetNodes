@@ -3,7 +3,9 @@ import java.util.Arrays;
 
 /**
  * @author Dawon Jeong 80%
+ *          implemented all methods
  * @author Jacy Yang 20%
+ *          implemented Big-Os
  * @author Kevin Williams 0%
  */
 
