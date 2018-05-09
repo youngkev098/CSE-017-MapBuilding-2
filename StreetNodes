@@ -43,6 +43,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     /**
      * To string method
      * @return the street and the locations on that street in string form
+     *
+     * O(1)
      */
     public String toString() 
     {
@@ -52,6 +54,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     /**
      * Compares street names
      * @return 0 if the streets are the same and -1 if they are not
+     *
+     * O(n)
      */
     public int compareTo(StreetNodes o)
     {
@@ -70,6 +74,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     /**
      * Getter for the street
      * @return street
+     * 
+     * O(1)
      */
     public String getStreet() 
     {
@@ -79,6 +85,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     /**
      * Set the new street
      * @param street to be set
+     *
+     * O(1)
      */
     public void setStreet(String street)
     {
@@ -88,6 +96,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     /**
      * Get the arraylist of the locations on a street
      * @return streetLoc locations
+     *
+     * O(1)
      */
     public ArrayList<Node<Point>> getStreetLoc()
     {
@@ -97,6 +107,8 @@ public class StreetNodes implements Comparable<StreetNodes> {
     /**
      * Set the arraylist for the streets
      * @param streetLoc to be set
+     *
+     * O(1)
      */
     public void setStreetLoc(ArrayList<Node<Point>> streetLoc) 
     {
