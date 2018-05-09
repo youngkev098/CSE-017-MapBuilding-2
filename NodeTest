@@ -3,12 +3,20 @@ import student.TestCase;
 
 /**
  * Tests for the {@link Node} class.
+ * 
+ * All members met and worked on the project together equally.
+ * @author Dawon Jeong (daj219) 100%
+ * @author Jacy Yang 0%
+ * @author Kevin Williams 0%
+ * @version 2018.04.27
  */
 public class NodeTest extends TestCase
 {
     private Node<Point> n1;
     private ArrayList<String> places1;
     private Point p1;
+    private ArrayList<String> streets1;
+    private double distance1;
 
     /**
      * Create some new nodes for each test method.
@@ -18,6 +26,8 @@ public class NodeTest extends TestCase
         p1 = new Point(1, 1);
         places1 = new ArrayList<String>();
         n1 = new Node<Point>(p1, places1);
+        streets1 = new ArrayList<String>();
+        distance1 = 10;
     }
 
     /**
@@ -65,7 +75,49 @@ public class NodeTest extends TestCase
         n1.setPlaces(places2);
         assertEquals("[academic building, restaurant]", n1.getPlaces().toString());
     }
-
+    
+    /**
+     * Test method for {@link Node#getStreets()
+     *                        Node#setStreets(ArrayList<String> streets)}.
+     */
+    public void testStreets()
+    {
+        assertEquals("[]", n1.getStreets().toString());
+        streets1.add("Packer Ave");
+        n1.setStreets(streets1);
+        assertEquals("[Packer Ave]", n1.getStreets().toString());
+        n1.getStreets().add("Morton Dr");
+        assertEquals("[Packer Ave, Morton Dr]", n1.getStreets().toString());
+    }
+    
+    /**
+     * Test method for {@link Node#getDistance()
+     *                        Node#setDistance(double distance)
+     *                        Node#compareTo(Node)}.
+     */
+    public void testCompareTo()
+    {
+        n1.getStreets().add("Packer Ave");
+        assertEquals(0.0, n1.getDistance(), 0.01);
+        n1.setDistance(10.0);
+        assertEquals(10.0, n1.getDistance(), 0.01);
+        
+        ArrayList<String> places2 = new ArrayList<String>();
+        Node<Point> n2 = new Node<Point>(p1, places2);
+        n2.addPlace("academic building");
+        n2.addPlace("restaurant");
+        n2.setDistance(15.0);
+        assertEquals(15.0, n2.getDistance(), 0.01);
+        assertEquals(-1, n1.compareTo(n2));
+        
+        Node<Point> n3 = new Node<Point>(new Point(2, 2), new ArrayList<String>());
+        n3.setDistance(10.0);
+        assertEquals(0, n1.compareTo(n3));
+        
+        n3.setDistance(5.0);
+        assertEquals(1, n1.compareTo(n3));
+    }
+    
     /**
      * Test method for {@link Node#toString()}.
      */
@@ -77,5 +129,6 @@ public class NodeTest extends TestCase
         n1.setPlaces(places1);
         assertEquals("(1,1): [bank, academic building, restaurant]",
                 n1.toString());
+        
     }
 }
