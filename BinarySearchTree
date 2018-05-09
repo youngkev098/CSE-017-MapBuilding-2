@@ -20,6 +20,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     // ----------------------------------------------------------
     /**
      * Constructs an empty tree.
+     * 
+     * O(1)
      */
     public BinarySearchTree() {
         root = null;
@@ -35,6 +37,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      *            the item to insert.
      * @throws DuplicateItemException
      *             if x is already present.
+     *
+     * O(log2n)
      */
     public void insert(T x) {
         root = insert(x, root);
@@ -48,6 +52,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      *            the item to remove.
      * @throws ItemNotFoundException
      *             if x is not found.
+     * 
+     * O(log2n)
      */
     public void remove(T x) {
         root = remove(x, root);
@@ -58,6 +64,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * Find the smallest item in the tree.
      * 
      * @return The smallest item, or null if the tree is empty.
+     * 
+     * O(log2n)
      */
     public T findMin() {
         return elementAt(findMin(root));
@@ -68,6 +76,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * Find the largest item in the tree.
      * 
      * @return The largest item in the tree, or null if the tree is empty.
+     * 
+     * O(log2n)
      */
     public T findMax() {
         return elementAt(findMax(root));
@@ -80,6 +90,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param x
      *            the item to search for.
      * @return the matching item or null if not found.
+     * 
+     * O(log2n)
      */
     public T find(T x) {
         return elementAt(find(x, root));
@@ -88,6 +100,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     // ----------------------------------------------------------
     /**
      * Make the tree logically empty.
+     * 
+     * O(1)
      */
     public void makeEmpty() {
         root = null;
@@ -98,6 +112,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * Test if the tree is logically empty.
      * 
      * @return true if empty, false otherwise.
+     * 
+     * O(1)
      */
     public boolean isEmpty() {
         return (root == null);
@@ -111,6 +127,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param node
      *            the node.
      * @return the element field or null if node is null.
+     * 
+     * O(1)
      */
     private T elementAt(BinaryNode<T> node) {
         return (node == null) ? null : node.getElement();
@@ -127,6 +145,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return the new root of the subtree.
      * @throws DuplicateItemException
      *             if x is already present.
+     * 
+     * O(log2n)
      */
     private BinaryNode<T> insert(T x, BinaryNode<T> node) {
         if (x == null) {
@@ -160,6 +180,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return the new root of the subtree.
      * @throws ItemNotFoundException
      *             if x is not found.
+     * 
+     * O(log2n)
      */
     private BinaryNode<T> remove(T x, BinaryNode<T> node) {
         // This local variable will contain the new root of the subtree,
@@ -206,6 +228,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param node
      *            the node that roots the tree.
      * @return node containing the smallest item.
+     * 
+     * O(log2n)
      */
     private BinaryNode<T> findMin(BinaryNode<T> node) {
         if (node == null) {
@@ -224,6 +248,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param node
      *            the node that roots the tree.
      * @return node containing the largest item.
+     * 
+     * O(log2n)
      */
     private BinaryNode<T> findMax(BinaryNode<T> node) {
         if (node == null) {
@@ -246,6 +272,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param node
      *            the node that roots the tree.
      * @return node containing the matched item.
+     * 
+     * O(log2n)
      */
     private BinaryNode<T> find(T x, BinaryNode<T> node) {
         if (node == null) {
