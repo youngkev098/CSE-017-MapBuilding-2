@@ -7,7 +7,9 @@
  *            The type of data element contained in the node.
  *
  * @author Mark Allen Weiss (with modifications by John Lewis)
- * @author Dawon Jeong
+ * @author Dawon Jeong 0%
+ * @author Jacy Yang 100%
+ * @author Kevin Williams 0%
  * @version 2018.04.23
  */
 public class BinarySearchTree<T extends Comparable<? super T>> {
