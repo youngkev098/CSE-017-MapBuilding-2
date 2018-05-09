@@ -6,7 +6,9 @@ import java.util.*;
  * 
  * @param <T> Point
  * @author Dawon Jeong 80%
+ *          implemented all of the new methods from Part 2
  * @author Jacy Yang 20%
+ *          implemented the Big-O for all of the methods
  * @author Kevin Williams 0%
  */
 public class Node<T> implements Comparable <Node<T>>
