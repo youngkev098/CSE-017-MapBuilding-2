@@ -2,6 +2,10 @@
  * To create a map service, it is necessary to assign coordinates to all the
  * points on a map.
  *
+ * (No changes to Point were made)
+ * @author Dawon Jeong
+ * @author Jacy Yang
+ * @author Kevin Williams
  */
 public class Point
 {
