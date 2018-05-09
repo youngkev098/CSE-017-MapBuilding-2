@@ -1,5 +1,7 @@
 /**
- * @author Jacy, Kevin and Aileen
+ * @author Dawon Jeong 0%
+ * @author Jacy Yang 100%
+ * @author Kevin Williams 0%
  * @version 5/2/2018
  */
 public class MinHeap {
