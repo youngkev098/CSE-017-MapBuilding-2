@@ -1,13 +1,14 @@
+import java.util.ArrayList;
+
 import student.TestCase;
 
 /**
  * Tests for the {@link Quad} class.
  * 
- * All members met and worked on the project together equally.
- * @author Dawon Jeong (daj219) 33%
- * @author Carolyn Wang (caw221) 34%
- * @author Kyle Wojciechowski (kmw219) 33%
- * @version 2018.04.27
+ * @author Dawon Jeong 50%
+ * @author Jacy Yang 50%
+ * @author Kyle Williams 0%
+ * @version 2018.05.08
  */
 public class QuadTest extends TestCase
 {
@@ -130,54 +131,29 @@ public class QuadTest extends TestCase
         main.insert(-1, 5, "hats");
         assertNull(main.search(-1, 5));
         assertTrue(main.search("hats").isEmpty());
-    }
-    
-    /**
-     * class testing street search methods
-     */
-    public void testStreetSearch() {        
-        // testing null
-        ArrayList<String> nullAnswer = new ArrayList<String>();
-        assertEquals(nullAnswer, main.streetSearch("The Bank"));
         
-        // adding street and location
-        Point p1 = new Point(1, 1);
-        ArrayList<String> place1 = new ArrayList<String>();
-        place1.add("The Bank");         
-        ArrayList<String> street1 = new ArrayList<String>();
-        street1.add("Alphabet");
-
-        // node: 1, 1, "The Bank" Place
-        Node<Point> node1 = new Node<Point>(p1, place1);
-        // node: 1, 1, "Alphabet" Street
-        Node<Point> node2 = new Node<Point>(p1, street1);
+        //Part 2 Testing ======================================================
         
-        ArrayList<Node<Point>> listOfPlaces = new ArrayList<Node<Point>>();
-        listOfPlaces.add(node1);
-        ArrayList<Node<Point>> listOfStreets = new ArrayList<Node<Point>>();
-        listOfStreets.add(node2);
+        //main.insert(1, 1, "The Bank", "E 3rd St");
+        //assertEquals("[(1,1): [The Bank]]", main.streetSearch("E 3rd St"));
         
-        assertEquals(listOfPlaces, main.streetSearch("Alphabet"));
+        //main.insert(1, 2, "Color Me Mine", "E 4th St");
+        //assertEquals("[(1,2): [Color Me Mine]]", main.streetSearch("E 4th St"));
         
-        // extending street
-        Point p2 = new Point(0, 1);
-        Point p3 = new Point(2, 1);
-        Node<Point> node3 = new Node<Point>(p2, street1);
-        Node<Point> node4 = new Node<Point>(p3, street1);
-        listOfStreets.add(node3);
-        listOfStreets.add(node4);
+        BinarySearchTree<StreetNodes> bst = new BinarySearchTree<StreetNodes>();
+        ArrayList<String> places = new ArrayList<String>();
+        Node<Point> n1 = new Node<Point>(new Point(1, 2), places);
+        n1.addPlace("Color Me Mine");
+        n1.addPlace("Bank");
+        n1.addPlace("U & Tea");
+        StreetNodes sn1 = new StreetNodes("E 4th St");
+        sn1.addPoint(n1);
+        bst.insert(sn1);
+        main.setBst(bst);
+        //main.streetSearch("E 4th St");
         
-        // adding location on street
-        place1.add("Restaurant");
-        Node<Point> node5 = new Node<Point>(p2, place1);
-        listOfPlaces.add(node5);
+        assertEquals("[(1,2): [Color Me Mine, Bank, U & Tea]]", main.streetSearch("E 4th St"));
+        //assertEquals("[(1,2): [Color Me Mine]]", main.streetSearch("E 4th St", "Color Me Mine"));
         
-        assertEquals(listOfPlaces, main.streetSearch("Alphabet"));
-        
-        place1.add("Restaurant");
-        Node<Point> node6 = new Node<Point>(p1, place1);
-        listOfPlaces.add(node6);
-        
-        assertEquals(listOfPlaces, main.streetSearch("Alphabet", "Restaurant"));
     }
 }
