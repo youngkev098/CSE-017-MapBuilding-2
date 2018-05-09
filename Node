@@ -5,8 +5,8 @@ import java.util.*;
  * location.
  * 
  * @param <T> Point
- * @author Dawon Jeong 100%
- * @author Jacy Yang 0%
+ * @author Dawon Jeong 80%
+ * @author Jacy Yang 20%
  * @author Kevin Williams 0%
  */
 public class Node<T> implements Comparable <Node<T>>
