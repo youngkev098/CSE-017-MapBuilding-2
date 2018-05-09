@@ -3,9 +3,9 @@
  * points on a map.
  *
  * (No changes to Point were made)
- * @author Dawon Jeong
- * @author Jacy Yang
- * @author Kevin Williams
+ * @author Dawon Jeong 33%
+ * @author Jacy Yang 33%
+ * @author Kevin Williams 33%
  */
 public class Point
 {
